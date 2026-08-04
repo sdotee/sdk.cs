@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Restore
+        run: dotnet restore See.DotNet.Sdk.slnx --locked-mode
+      - name: Check formatting
+        run: dotnet format See.DotNet.Sdk.slnx --verify-no-changes --no-restore
+      - name: Build
+        run: dotnet build See.DotNet.Sdk.slnx --configuration Release --no-restore
+      - name: Test
+        run: dotnet test See.DotNet.Sdk.slnx --configuration Release --no-build --no-restore
+      - name: Pack
+        run: dotnet pack src/See.Sdk/See.Sdk.csproj --configuration Release --no-build --no-restore --output artifacts -p:PackageVersion=${GITHUB_REF_NAME#v}
+      - name: Publish to NuGet
+        run: dotnet nuget push "artifacts/see.sdk.${GITHUB_REF_NAME#v}.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --no-symbols
+      - name: Publish symbols to NuGet
+        run: dotnet nuget push "artifacts/see.sdk.${GITHUB_REF_NAME#v}.snupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json

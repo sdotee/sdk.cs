@@ -1,0 +1,8 @@
+<Solution>
+    <Folder Name="/src/">
+        <Project Path="src/See.Sdk/See.Sdk.csproj" />
+    </Folder>
+    <Folder Name="/tests/">
+        <Project Path="tests/See.Sdk.Tests/See.Sdk.Tests.csproj" />
+    </Folder>
+</Solution>

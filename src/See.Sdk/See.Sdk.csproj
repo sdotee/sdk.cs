@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);CS1591</NoWarn>
+        <PackageId>see.sdk</PackageId>
+        <Title>see sdk</Title>
+        <Description>Typed .NET client for the S.EE API.</Description>
+        <Authors>S.EE</Authors>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/sdotee/sdk.cs</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/sdotee/sdk.cs</RepositoryUrl>
+        <PackageTags>see url-shortener api sdk</PackageTags>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath="/" />
+    </ItemGroup>
+</Project>
